@@ -36,12 +36,10 @@ const liveChart = new Chart(ctx, {
   }
 });
 
-// Parámetros automáticos que varían suavemente
 function omega(t)     { return 0.8 + 0.4 * Math.sin(0.20 * t); }
 function amplitude(t) { return 80  + 40  * Math.sin(0.10 * t + 1); }
 function phase(t)     { return 18  + 3   * Math.sin(0.13 * t + 0.5); }
 
-// Función de jugadores f(t)
 function f(t) {
   const w   = omega(t);
   const A   = amplitude(t);
