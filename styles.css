@@ -41,7 +41,6 @@ body > * {
   z-index: 1;
 }
 
-/* ── Header ── */
 .game-header {
   background: rgba(24, 33, 43, 0.75);
   backdrop-filter: blur(8px);
@@ -95,7 +94,6 @@ body > * {
 .btn-control:hover { transform: translateY(-1px); }
 .btn-control.paused { background: linear-gradient(90deg, #f97316 0%, #fb923c 100%); }
 
-/* ── Dashboard: 3 columnas ── */
 .dashboard-body {
   display: grid;
   grid-template-columns: 280px 1fr 280px;
@@ -103,7 +101,6 @@ body > * {
   flex: 1;
 }
 
-/* ── Columnas laterales ── */
 .side-col {
   display: flex;
   flex-direction: column;
@@ -168,7 +165,6 @@ body > * {
   padding: 2px 9px;
 }
 
-/* ── Columna central ── */
 .center-col {
   display: flex;
   flex-direction: column;
@@ -207,7 +203,6 @@ body > * {
 .stat-value.integral { color: var(--steam-gold); }
 .stat-label { font-size: 0.82rem; color: var(--steam-text-muted); }
 
-/* ── Gráfica ── */
 .chart-section {
   background: rgba(24, 33, 43, 0.75);
   backdrop-filter: blur(8px);
@@ -242,7 +237,6 @@ body > * {
   position: relative;
 }
 
-/* ── Footer ── */
 .footer {
   flex-shrink: 0;
   padding: 10px 20px;
