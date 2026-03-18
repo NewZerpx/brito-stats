@@ -11,7 +11,6 @@
     onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false},{left: '\\[', right: '\\]', display: true}]});">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -30,47 +29,56 @@
   <div class="dashboard-body">
 
     <div class="side-col">
+
       <div class="info-card">
         <div class="info-card-header">
-          <div class="info-card-icon">∫</div>
-          <div class="info-title">¿Qué es la integral aquí?</div>
+          <div class="info-card-icon">🔴</div>
+          <div class="info-title">El Problema</div>
         </div>
         <div class="info-text">
-          <strong>f(t)</strong> es la tasa de jugadores en la hora t. 
-          La integral acumula la actividad total:
-        </div>
-        <div class="formula-box">
-          \[ A(t) = \int_0^t\! f(s)\,ds \approx \sum_i f(t_i)\cdot 0.1 \]
+          <strong>Brito's Haters</strong> necesita contratar servidores en la nube 
+          para su juego multijugador. Los proveedores como AWS no cobran por el 
+          pico máximo de jugadores, sino por el <strong>uso acumulado por hora</strong>.
         </div>
         <div class="info-text">
-          Cada paso suma <strong>f(t)·Δt</strong>, la base numérica 
-          de la Suma de Riemann. A mayor número de subdivisiones, 
-          más precisa es la aproximación del área real bajo la curva.
+          Conocer solo cuántos jugadores hay <em>ahora mismo</em> no es suficiente — 
+          la empresa necesita saber la <strong>actividad total acumulada</strong> en 
+          el día para dimensionar servidores, evitar caídas y controlar costos.
         </div>
         <div class="tags">
-          <span class="tag">Suma de Riemann</span>
-          <span class="tag">Δt = 0.1</span>
+          <span class="tag">Infraestructura</span>
+          <span class="tag">Costos en la nube</span>
+          <span class="tag">Escalabilidad</span>
         </div>
       </div>
 
       <div class="info-card">
         <div class="info-card-header">
-          <div class="info-card-icon">🎮</div>
-          <div class="info-title">Videojuegos y servidores</div>
+          <div class="info-card-icon">📐</div>
+          <div class="info-title">Modelación por etapas</div>
         </div>
         <div class="info-text">
-          Steam, Xbox Live y PSN usan integrales para medir la 
-          <strong>carga acumulada</strong> de servidores en el tiempo.
-          Si f(t) son peticiones por segundo,
-          \( \int_a^b f(t)\,dt \)
-          da el total en ese intervalo — clave para dimensionar 
-          infraestructura y evitar caídas en picos de jugadores.
+          Se identificaron <strong>3 comportamientos distintos</strong> durante el día:
+        </div>
+        <div class="formula-box">
+          \( f_1(t) = 20 + 10\sin\!\left(\tfrac{\pi t}{24}\right) \) <br>
+          <span style="font-size:0.72rem; color: var(--steam-text-muted);">Nocturna: 0 – 8 h</span>
+        </div>
+        <div class="formula-box">
+          \( f_2(t) = f_1(t) + 80\,e^{-\left(\frac{t-14}{3}\right)^2} \) <br>
+          <span style="font-size:0.72rem; color: var(--steam-text-muted);">Actividad creciente: 8 – 18 h</span>
+        </div>
+        <div class="formula-box">
+          \( f_3(t) = f_1(t) + 40\,e^{-\left(\frac{t-21}{2}\right)^2} \) <br>
+          <span style="font-size:0.72rem; color: var(--steam-text-muted);">Pico nocturno: 18 – 24 h</span>
         </div>
         <div class="tags">
-          <span class="tag">Infraestructura</span>
-          <span class="tag">Escalabilidad</span>
+          <span class="tag">Sinusoidal</span>
+          <span class="tag">Gaussiana</span>
+          <span class="tag">Función por tramos</span>
         </div>
       </div>
+
     </div>
 
     <div class="center-col">
@@ -104,53 +112,59 @@
     </div>
 
     <div class="side-col">
+
       <div class="info-card">
         <div class="info-card-header">
-          <div class="info-card-icon">💰</div>
-          <div class="info-title">Economía y monetización</div>
+          <div class="info-card-icon">∫</div>
+          <div class="info-title">La Solución Matemática</div>
         </div>
         <div class="info-text">
-          Si cada jugador genera ingresos a tasa <strong>r</strong>, 
-          los ingresos diarios son:
+          La <strong>actividad total acumulada</strong> se calcula integrando 
+          la función por tramos en cada intervalo:
         </div>
         <div class="formula-box">
-          \[ \text{Ingresos} = r\int_0^{24}\! f(t)\,dt \]
+          \[ A = \int_0^8\!f_1\,dt + \int_8^{18}\!f_2\,dt + \int_{18}^{24}\!f_3\,dt \]
         </div>
         <div class="info-text">
-          Así funcionan <strong>Game Pass y SaaS</strong> — el ingreso 
-          total es el área bajo la curva de usuarios activos. 
-          También permite predecir ingresos futuros modelando 
-          el crecimiento de la base de jugadores.
+          Aproximada numéricamente con <strong>Suma de Riemann</strong> 
+          (\(\Delta t = 0.1\)):
+          \[ A(t) \approx \sum_{i} f(t_i)\cdot 0.1 \]
+          El <strong>promedio real</strong> de jugadores es:
+          \[ \bar{f} = \frac{1}{24}\int_0^{24} f(t)\,dt \]
         </div>
         <div class="tags">
-          <span class="tag">Game Pass</span>
-          <span class="tag">SaaS</span>
+          <span class="tag">Integral definida</span>
+          <span class="tag">Suma de Riemann</span>
         </div>
       </div>
 
       <div class="info-card">
         <div class="info-card-header">
-          <div class="info-card-icon">💻</div>
-          <div class="info-title">Ingeniería de Software</div>
+          <div class="info-card-icon">🖥️</div>
+          <div class="info-title">Decisión de Ingeniería</div>
         </div>
         <div class="info-text">
-          📡 <strong>Rendimiento:</strong> integrar uso de CPU mide 
-          consumo acumulado — base del profiling y optimización.<br><br>
-          🗄️ <strong>Bases de datos:</strong> consultas/s integradas 
-          dimensionan réplicas e índices correctamente.<br><br>
-          🔁 <strong>CI/CD:</strong> integrar jobs en pipeline estima 
-          cuellos de botella en despliegues continuos.<br><br>
-          📊 <strong>ML / AUC-ROC:</strong> el área bajo la curva ROC 
-          evalúa la calidad de modelos de clasificación.
+          Con <strong>A(t)</strong> calculada, el equipo concluye si la 
+          infraestructura contratada cubre la demanda real del día o si 
+          existe riesgo de caída de servidores.
+        </div>
+        <div class="info-text">
+          Si <strong>A₂₄ &gt; capacidad contratada</strong>, se recomienda:<br><br>
+          ⚙️ <strong>Escalar automáticamente</strong> los servidores durante 
+          las horas pico identificadas en la gráfica.<br><br>
+          🌍 <strong>Redistribuir jugadores</strong> en servidores regionales 
+          según la franja horaria activa.<br><br>
+          🔒 <strong>Implementar límites dinámicos</strong> de conexión basados 
+          en el valor acumulado de la integral en tiempo real.
         </div>
         <div class="tags">
-          <span class="tag">DevOps</span>
-          <span class="tag">Machine Learning</span>
+          <span class="tag">Escalabilidad</span>
           <span class="tag">Optimización</span>
+          <span class="tag">Infraestructura</span>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 
   <div class="footer">
