@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Brito's Haters Tower Defense - Player Stats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+    onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false},{left: '\\[', right: '\\]', display: true}]});">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="game-header">
+    <div class="game-art">
+      <img src="brito.png" alt="Brito's Game Logo" />
+    </div>
+    <div class="game-info">
+      <h1>Brito's Haters Tower Defense</h1>
+      <div class="game-subtitle">Estadísticas de jugadores simuladas · Cálculo Integral aplicado</div>
+    </div>
+    <button id="toggleBtn" class="btn-control">▶ Iniciar simulación</button>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard-body">
+
+    <!-- Izquierda -->
+    <div class="side-col">
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="info-card-icon">∫</div>
+          <div class="info-title">¿Qué es la integral aquí?</div>
+        </div>
+        <div class="info-text">
+          <strong>f(t)</strong> es la tasa de jugadores en la hora t. 
+          La integral acumula la actividad total:
+        </div>
+        <div class="formula-box">
+          \[ A(t) = \int_0^t\! f(s)\,ds \approx \sum_i f(t_i)\cdot 0.1 \]
+        </div>
+        <div class="info-text">
+          Cada paso suma <strong>f(t)·Δt</strong>, la base numérica 
+          de la Suma de Riemann. A mayor número de subdivisiones, 
+          más precisa es la aproximación del área real bajo la curva.
+        </div>
+        <div class="tags">
+          <span class="tag">Suma de Riemann</span>
+          <span class="tag">Δt = 0.1</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="info-card-icon">🎮</div>
+          <div class="info-title">Videojuegos y servidores</div>
+        </div>
+        <div class="info-text">
+          Steam, Xbox Live y PSN usan integrales para medir la 
+          <strong>carga acumulada</strong> de servidores en el tiempo.
+          Si f(t) son peticiones por segundo,
+          \( \int_a^b f(t)\,dt \)
+          da el total en ese intervalo — clave para dimensionar 
+          infraestructura y evitar caídas en picos de jugadores.
+        </div>
+        <div class="tags">
+          <span class="tag">Infraestructura</span>
+          <span class="tag">Escalabilidad</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centro -->
+    <div class="center-col">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value" id="currentPlayers">0</div>
+          <div class="stat-label">Jugadores ahora</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📈</div>
+          <div class="stat-value integral" id="integralValue">0</div>
+          <div class="stat-label">Integral acumulada</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-value" id="avgValue">0</div>
+          <div class="stat-label">Promedio [0, t]</div>
+        </div>
+      </div>
+
+      <div class="chart-section">
+        <div class="chart-header">
+          <div class="chart-title">Jugadores conectados por hora</div>
+          <div class="chart-time" id="currentTimeLabel">t = 0.0 h</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="liveChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Derecha -->
+    <div class="side-col">
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="info-card-icon">💰</div>
+          <div class="info-title">Economía y monetización</div>
+        </div>
+        <div class="info-text">
+          Si cada jugador genera ingresos a tasa <strong>r</strong>, 
+          los ingresos diarios son:
+        </div>
+        <div class="formula-box">
+          \[ \text{Ingresos} = r\int_0^{24}\! f(t)\,dt \]
+        </div>
+        <div class="info-text">
+          Así funcionan <strong>Game Pass y SaaS</strong> — el ingreso 
+          total es el área bajo la curva de usuarios activos. 
+          También permite predecir ingresos futuros modelando 
+          el crecimiento de la base de jugadores.
+        </div>
+        <div class="tags">
+          <span class="tag">Game Pass</span>
+          <span class="tag">SaaS</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <div class="info-card-icon">💻</div>
+          <div class="info-title">Ingeniería de Software</div>
+        </div>
+        <div class="info-text">
+          📡 <strong>Rendimiento:</strong> integrar uso de CPU mide 
+          consumo acumulado — base del profiling y optimización.<br><br>
+          🗄️ <strong>Bases de datos:</strong> consultas/s integradas 
+          dimensionan réplicas e índices correctamente.<br><br>
+          🔁 <strong>CI/CD:</strong> integrar jobs en pipeline estima 
+          cuellos de botella en despliegues continuos.<br><br>
+          📊 <strong>ML / AUC-ROC:</strong> el área bajo la curva ROC 
+          evalúa la calidad de modelos de clasificación.
+        </div>
+        <div class="tags">
+          <span class="tag">DevOps</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Optimización</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="footer-group">Grupo 1 · Cálculo Integral UCC</span>
+    <span class="footer-divider">|</span>
+    <span class="footer-names">Alfonso Martinez · Elias Céspedes · Gerónimo Forero · Santiago Martinez · Pablo Peñaloza</span>
+  </div>
+
+  <!-- JS propio -->
+  <script src="script.js"></script>
+</body>
+</html>
