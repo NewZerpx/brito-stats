@@ -36,17 +36,17 @@ const liveChart = new Chart(ctx, {
   }
 });
 
-function omega(t)     { return 0.8 + 0.4 * Math.sin(0.20 * t); }
-function amplitude(t) { return 80  + 40  * Math.sin(0.10 * t + 1); }
-function phase(t)     { return 18  + 3   * Math.sin(0.13 * t + 0.5); }
-
 function f(t) {
-  const w   = omega(t);
-  const A   = amplitude(t);
-  const phi = phase(t);
-  const base = 20 + 10 * Math.sin(w * Math.PI * (t / 24));
-  const peak = A  * Math.exp(-Math.pow((t - phi) / 3, 2));
-  return Math.max(0, base + peak);
+  const base = 20 + 10 * Math.sin(Math.PI * t / 24);
+  if (t <= 8) {
+    return Math.max(0, base);
+  } else if (t <= 18) {
+    const peak = 80 * Math.exp(-Math.pow((t - 14) / 3, 2));
+    return Math.max(0, base + peak);
+  } else {
+    const peak = 40 * Math.exp(-Math.pow((t - 21) / 2, 2));
+    return Math.max(0, base + peak);
+  }
 }
 
 function simulationStep() {
